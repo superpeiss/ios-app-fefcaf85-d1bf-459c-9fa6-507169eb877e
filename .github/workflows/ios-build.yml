@@ -25,20 +25,27 @@ jobs:
 
       - name: Build iOS app
         run: |
+          set -o pipefail
           xcodebuild -scheme MusicVideoGenerator \
             -project MusicVideoGenerator.xcodeproj \
             -destination 'generic/platform=iOS' \
             clean build \
             CODE_SIGNING_ALLOWED=NO \
-            | tee build.log
+            2>&1 | tee build.log
 
-      - name: Check build result
-        run: |
-          if grep -q "BUILD SUCCEEDED" build.log; then
-            echo "✅ Build succeeded!"
+          # Check exit code
+          BUILD_EXIT_CODE=$?
+
+          # Also check for success message
+          if [ $BUILD_EXIT_CODE -eq 0 ]; then
+            echo "✅ Build succeeded (exit code 0)"
+          elif grep -qi "BUILD SUCCEEDED" build.log || grep -qi "\*\* BUILD SUCCEEDED \*\*" build.log; then
+            echo "✅ Build succeeded (found success message)"
             exit 0
           else
-            echo "❌ Build failed!"
+            echo "❌ Build failed with exit code: $BUILD_EXIT_CODE"
+            echo "Last 50 lines of build log:"
+            tail -50 build.log
             exit 1
           fi
 
