@@ -1,0 +1,63 @@
+name: MusicVideoGenerator
+
+options:
+  bundleIdPrefix: com.musicvideo
+  deploymentTarget:
+    iOS: "16.0"
+  developmentLanguage: en
+
+settings:
+  SWIFT_VERSION: 5.9
+  PRODUCT_NAME: MusicVideoGenerator
+  MARKETING_VERSION: "1.0.0"
+  CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  MusicVideoGenerator:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: MusicVideoGenerator
+    settings:
+      INFOPLIST_FILE: MusicVideoGenerator/Resources/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.musicvideo.MusicVideoGenerator
+      DEVELOPMENT_TEAM: ""
+      CODE_SIGN_STYLE: Automatic
+      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      ENABLE_PREVIEWS: YES
+      SWIFT_EMIT_LOC_STRINGS: YES
+    info:
+      path: MusicVideoGenerator/Resources/Info.plist
+      properties:
+        UILaunchScreen:
+          UIColorName: ""
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSMicrophoneUsageDescription: "This app needs microphone access to transcribe lyrics from audio files."
+        NSSpeechRecognitionUsageDescription: "This app uses speech recognition to transcribe lyrics from your music."
+        NSPhotoLibraryUsageDescription: "This app needs access to save exported videos to your photo library."
+        NSPhotoLibraryAddUsageDescription: "This app needs access to save exported videos to your photo library."
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: true
+        CFBundleDisplayName: MusicVideoGenerator
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "1"
+
+schemes:
+  MusicVideoGenerator:
+    build:
+      targets:
+        MusicVideoGenerator: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
