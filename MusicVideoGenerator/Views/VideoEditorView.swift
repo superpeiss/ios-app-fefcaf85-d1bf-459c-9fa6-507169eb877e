@@ -131,7 +131,13 @@ struct ClipEditorView: View {
         self.clip = clip
         self.onUpdate = onUpdate
         self.onDelete = onDelete
-        self._editableClip = State(initialValue: clip)
+
+        // Ensure colorGrade is initialized
+        var initialClip = clip
+        if initialClip.colorGrade == nil {
+            initialClip.colorGrade = ColorGrade()
+        }
+        self._editableClip = State(initialValue: initialClip)
     }
 
     var body: some View {
@@ -178,10 +184,6 @@ struct ClipEditorView: View {
                 VStack(alignment: .leading, spacing: 15) {
                     Text("Color Grading")
                         .font(.headline)
-
-                    if editableClip.colorGrade == nil {
-                        editableClip.colorGrade = ColorGrade()
-                    }
 
                     // Preset Selection
                     ScrollView(.horizontal, showsIndicators: false) {
